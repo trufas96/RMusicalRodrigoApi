@@ -30,14 +30,7 @@ class LoginViewController: UIViewController {
         
         //create dataTask using the session object to send data to the server
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            
-           /* if let json = response.result.value {
-                
-            }*/
-            
-            
-            
-            
+           
             guard error == nil else {
                 return
             }
@@ -48,11 +41,11 @@ class LoginViewController: UIViewController {
             
             
             do {
-                //create json object from data
+                
                 if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
                     print(json)
-                    // handle json...
-                    let data = Responses(json: (json as! NSDictionary) as! [String : Any])
+                    
+                    let data = Responses(json: (json as NSDictionary) as! [String : Any])
                     
                     switch(data.code){
                         
