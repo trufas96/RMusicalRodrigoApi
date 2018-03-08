@@ -41,7 +41,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let json = response.result.value {
                 let data = Responses(json: (json as! NSDictionary) as! [String : Any])
                 let array = data.data
-                print(array)
                 switch(data.code){
                 case 200:
                     var recivedData = data.data as! NSArray

@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 class Songs{
-    var id : Int
+    var id : String
     var title : String
-    var url : URL
+    var url : String
 
     
     init(json: NSDictionary) {
-        id = (json["id"] as? Int)!
+        id = (json["id"] as? String)!
         title = json["title"] as? String ?? ""
-        url = (json["url"] as? URL)!
+        url = (json["url"] as? String)!
     }
     
 }

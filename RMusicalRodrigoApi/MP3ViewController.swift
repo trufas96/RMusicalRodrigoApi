@@ -8,14 +8,14 @@ import Alamofire
 class MP3ViewController: UIViewController, WKNavigationDelegate {
 
     @IBOutlet weak var webKit: WKWebView!
+    var url : String = ""
     var downloadTimer = Timer()
     let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        print(url)
         myActivityIndicator.center = view.center
         
         myActivityIndicator.hidesWhenStopped = true
@@ -23,7 +23,7 @@ class MP3ViewController: UIViewController, WKNavigationDelegate {
         view.addSubview(myActivityIndicator)
         
         webKit.navigationDelegate = self
-        let urlYT = NSURL(string : "")
+        let urlYT = NSURL(string : url)
         let requestYT = NSURLRequest(url: urlYT! as URL)
         webKit.load(requestYT as URLRequest)
         

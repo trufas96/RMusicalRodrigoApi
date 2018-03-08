@@ -5,25 +5,21 @@ import UIKit
 class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
-    
-    
-    
-    //var list = [List]()
     var arraySong = [Songs]()
     @IBOutlet weak var STable: UITableView!
-    
-    
+    var url : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         STable.delegate = self
         STable.dataSource = self
         getSongs()
+        
     }
     
     
     public func getSongs() {
         let url = "http://localhost:8888/apiRmusicalRodrigo/public/index.php/Songs/songs.json"
-        var token = ""
+        var token : String = ""
         
         if (UserDefaults.standard.string(forKey: "token") != nil) {
             token = UserDefaults.standard.string(forKey: "token")!
@@ -32,9 +28,11 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         {
             token = ""
         }
-        let header = ["Authorization": token, "Accept": "application/json"]
+        let header = ["Authorization": token,
+                     "Accept": "application/json"]
         
-        Alamofire.request(url, method: .get, headers : header).responseJSON{ response in
+        Alamofire.request(url, method: .get, headers : header).responseJSON{
+            response in
             print("RESULT :: \(response.result)")
             if let json = response.result.value {
                 let data = Responses(json: (json as! NSDictionary) as! [String : Any])
@@ -43,8 +41,8 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 case 200:
                     var recivedData = data.data as! NSArray
                     
-                    for songs in recivedData {
-                        self.arraySong.append(Songs(json: songs as! NSDictionary))
+                    for songs in array as! [NSDictionary]{
+                        self.arraySong.append(Songs(json: songs))
                     }
                     self.STable.reloadData()
                     break
@@ -62,12 +60,18 @@ class SongsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = STable.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = STable.dequeueReusableCell(withIdentifier: "cell2", for: indexPath)
         cell.textLabel?.text = arraySong[indexPath.row].title
+        url = arraySong[indexPath.row].url
         return cell
     }
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destino = segue.destination as! MP3ViewController
+        destino.url = url
+    }
     
     
 }

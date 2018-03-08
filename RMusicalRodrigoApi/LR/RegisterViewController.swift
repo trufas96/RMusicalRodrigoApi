@@ -20,7 +20,11 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        idDeviceTF.isEnabled = false
+        xTF.isEnabled = false
+        yTF.isEnabled = false
+
+
     }
     
     @IBAction func send(_ sender: UIButton) {
